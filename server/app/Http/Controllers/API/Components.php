@@ -38,4 +38,13 @@ class Components extends Controller
             'component' => $component
         ], 201);
     }
+    public function showComponent(Request $request) {
+        $components = Component::all();
+
+        foreach ($components as $component) {
+            $component->image = url('storage/' . $component->image); // Generate full image URL
+        }
+
+        return response()->json($components);
+    }
 }
