@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class Components extends Controller
 {
-    public function store(Request $request)
+    public function storeComponent(Request $request)
     {
         // Validate the request
         $validated = $request->validate([
@@ -35,6 +35,7 @@ class Components extends Controller
         ]);
         return response()->json([
             'message' => 'Component added successfully',
+            'component' => $component
         ], 201);
     }
 }
