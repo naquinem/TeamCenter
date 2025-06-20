@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Models\Component;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class Components extends Controller
 {
@@ -18,13 +19,11 @@ class Components extends Controller
             'quantity'      => 'nullable|integer',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
         // Handle optional image upload
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
         }
-
         // Create the component
         $component = Component::create([
             'item_code'     => $validated['item_code'],
@@ -34,10 +33,8 @@ class Components extends Controller
             'quantity'      => $validated['quantity'] ?? 0,
             'image'         => $imagePath,
         ]);
-
         return response()->json([
             'message' => 'Component added successfully',
-            'data'    => $component, // Optional: return created data
         ], 201);
     }
 }
